@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_result_user,result user,model_lugatis_call_result,base.group_user,1,0,0,0
+access_result_admin,result admin,model_lugatis_call_result,base.group_system,1,1,1,1
+access_tag_user,tag user,model_lugatis_call_tag,base.group_user,1,0,0,0
+access_tag_admin,tag admin,model_lugatis_call_tag,base.group_system,1,1,1,1
+access_status_user,status user,model_lugatis_agent_status,base.group_user,1,0,0,0
+access_status_admin,status admin,model_lugatis_agent_status,base.group_system,1,1,1,1
+access_call_user,call user,model_lugatis_call,base.group_user,1,1,1,0
+access_call_admin,call admin,model_lugatis_call,base.group_system,1,1,1,1
+access_log_user,log user,model_lugatis_agent_log,base.group_user,1,0,0,0
+access_log_admin,log admin,model_lugatis_agent_log,base.group_system,1,1,1,1
+access_plugin_user,plugin user,model_lugatis_plugin,base.group_user,1,0,0,0
+access_plugin_admin,plugin admin,model_lugatis_plugin,base.group_system,1,1,1,1
+access_nps_user,nps user,model_lugatis_nps,base.group_user,1,1,1,0
+access_nps_admin,nps admin,model_lugatis_nps,base.group_system,1,1,1,1
