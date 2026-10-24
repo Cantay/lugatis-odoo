@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Users see their own calls and status history; administrators see everyone's. -->
+    <record id="rule_call_own" model="ir.rule">
+        <field name="name">Lugatis: kendi görüşmelerim</field>
+        <field name="model_id" ref="model_lugatis_call"/>
+        <field name="domain_force">[("user_id", "=", user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="rule_call_all" model="ir.rule">
+        <field name="name">Lugatis: tüm görüşmeler (yönetici)</field>
+        <field name="model_id" ref="model_lugatis_call"/>
+        <field name="domain_force">[(1, "=", 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+    <record id="rule_log_own" model="ir.rule">
+        <field name="name">Lugatis: kendi durum geçmişim</field>
+        <field name="model_id" ref="model_lugatis_agent_log"/>
+        <field name="domain_force">[("user_id", "=", user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="rule_log_all" model="ir.rule">
+        <field name="name">Lugatis: tüm durum geçmişi (yönetici)</field>
+        <field name="model_id" ref="model_lugatis_agent_log"/>
+        <field name="domain_force">[(1, "=", 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_plugin_list" model="ir.ui.view">
+        <field name="name">lugatis.plugin.list</field>
+        <field name="model">lugatis.plugin</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="key"/>
+                <field name="version"/>
+                <field name="author"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_plugin_form" model="ir.ui.view">
+        <field name="name">lugatis.plugin.form</field>
+        <field name="model">lugatis.plugin</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="key"/>
+                        <field name="version"/>
+                        <field name="author"/>
+                        <field name="wasm" filename="wasm_name"/>
+                        <field name="wasm_name" invisible="1"/>
+                        <field name="sha256"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Kullanıcıların mağazada göreceği açıklama"/>
+                    <div class="text-muted">
+                        Eklentiyi Lugatis masaüstünden (Ayarlar → Mağaza → Eklentiler → Odoo'ya yayınla)
+                        yayınlamak anahtar, ad ve sürümü eklentinin kendisinden doldurur.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_plugins" model="ir.actions.act_window">
+        <field name="name">Lugatis eklentileri</field>
+        <field name="res_model">lugatis.plugin</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{"active_test": False}</field>
+    </record>
+    <menuitem id="menu_plugins" name="Eklentiler" parent="menu_config" action="action_plugins" sequence="40"/>
+</odoo>

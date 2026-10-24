@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Which Lugatis desktop modules a user sees, when "Modülleri gruplara göre
+         sınırla" is on (Ayarlar → Lugatis). Odoo's own rights still apply. -->
+    <record id="module_category_lugatis" model="ir.module.category">
+        <field name="name">Lugatis</field>
+        <field name="description">Lugatis masaüstü uygulamasında görünen modüller</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="group_module_crm" model="res.groups">
+        <field name="name">CRM</field>
+    </record>
+    <record id="group_module_sales" model="res.groups">
+        <field name="name">Satış</field>
+    </record>
+    <record id="group_module_projects" model="res.groups">
+        <field name="name">Proje</field>
+    </record>
+    <record id="group_module_calendar" model="res.groups">
+        <field name="name">Takvim</field>
+    </record>
+    <record id="group_module_helpdesk" model="res.groups">
+        <field name="name">Destek</field>
+    </record>
+    <record id="group_module_invoicing" model="res.groups">
+        <field name="name">Fatura</field>
+    </record>
+    <record id="group_module_mail" model="res.groups">
+        <field name="name">Mail</field>
+    </record>
+    <record id="group_module_phone" model="res.groups">
+        <field name="name">Telefon</field>
+    </record>
+    <record id="group_module_customer360" model="res.groups">
+        <field name="name">Müşteri 360</field>
+    </record>
+    <record id="group_module_stock" model="res.groups">
+        <field name="name">Stok ve fiyat</field>
+    </record>
+    <record id="group_module_quotes" model="res.groups">
+        <field name="name">Teklif takibi</field>
+    </record>
+    <record id="group_module_campaigns" model="res.groups">
+        <field name="name">Kampanyalar</field>
+    </record>
+    <record id="group_module_collections" model="res.groups">
+        <field name="name">Tahsilat</field>
+    </record>
+    <record id="group_module_approvals" model="res.groups">
+        <field name="name">Onaylar</field>
+    </record>
+    <record id="group_module_dashboard" model="res.groups">
+        <field name="name">Günlük panel</field>
+    </record>
+    <record id="group_module_shipments" model="res.groups">
+        <field name="name">Sevkiyat takibi</field>
+    </record>
+    <record id="group_module_service" model="res.groups">
+        <field name="name">Servis ve randevu</field>
+    </record>
+    <record id="group_module_hr" model="res.groups">
+        <field name="name">İK</field>
+    </record>
+    <record id="group_module_calltime" model="res.groups">
+        <field name="name">Görüşme süresi → zaman çizelgesi</field>
+    </record>
+    <record id="group_module_nps" model="res.groups">
+        <field name="name">Çağrı sonrası anket</field>
+    </record>
+    <record id="group_module_triage" model="res.groups">
+        <field name="name">Günüm ve öncelik</field>
+    </record>
+    <record id="group_module_assistant" model="res.groups">
+        <field name="name">Yapay zekâ asistanı</field>
+    </record>
+    <record id="group_module_meeting" model="res.groups">
+        <field name="name">Toplantı kaydedici</field>
+    </record>
+    <record id="group_module_phoneagent" model="res.groups">
+        <field name="name">Telefon asistanı</field>
+    </record>
+    <record id="group_module_automation" model="res.groups">
+        <field name="name">Otomasyon</field>
+    </record>
+    <record id="group_module_ecommerce" model="res.groups">
+        <field name="name">E-Ticaret</field>
+    </record>
+    <record id="group_module_pos" model="res.groups">
+        <field name="name">Kasa</field>
+    </record>
+    <record id="group_module_expense" model="res.groups">
+        <field name="name">Masraf</field>
+    </record>
+    <record id="group_module_all" model="res.groups">
+        <field name="name">Tüm modüller</field>
+        <field name="implied_ids" eval="[(4, ref('group_module_crm')), (4, ref('group_module_sales')),
+            (4, ref('group_module_projects')), (4, ref('group_module_calendar')),
+            (4, ref('group_module_helpdesk')), (4, ref('group_module_invoicing')),
+            (4, ref('group_module_mail')), (4, ref('group_module_phone')),
+            (4, ref('group_module_customer360')), (4, ref('group_module_stock')),
+            (4, ref('group_module_quotes')), (4, ref('group_module_campaigns')),
+            (4, ref('group_module_collections')), (4, ref('group_module_approvals')),
+            (4, ref('group_module_dashboard')), (4, ref('group_module_shipments')),
+            (4, ref('group_module_service')), (4, ref('group_module_hr')),
+            (4, ref('group_module_calltime')), (4, ref('group_module_nps')),
+            (4, ref('group_module_triage')), (4, ref('group_module_assistant')),
+            (4, ref('group_module_meeting')), (4, ref('group_module_phoneagent')), (4, ref('group_module_automation')), (4, ref('group_module_ecommerce')),
+            (4, ref('group_module_pos')), (4, ref('group_module_expense'))]"/>
+    </record>
+    <!-- Odoo 18 puts groups in a category, Odoo 19 under a privilege: done in Python for
+         whichever this server has. -->
+    <function model="res.groups" name="_lugatis_categorize"/>
+</odoo>

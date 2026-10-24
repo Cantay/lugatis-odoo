@@ -1,0 +1,22 @@
+{
+    "name": "Lugatis Çağrı Merkezi",
+    "summary": "Lugatis masaüstü telefonu için çağrı kayıtları, sonuç kodları, etiketler, kullanıcı durumları ve modül erişimi",
+    "version": "19.0.1.11.0",
+    "category": "Productivity/Phone",
+    "author": "Lugatsoft",
+    "website": "https://www.lugatsoft.com",
+    "license": "LGPL-3",
+    "depends": ["base", "mail"],
+    "data": [
+        "security/groups.xml",
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "data/defaults.xml",
+        "views/views.xml",
+        "views/settings.xml",
+        "views/plugins.xml",
+        "views/nps.xml",
+    ],
+    "application": True,
+    "installable": True,
+}

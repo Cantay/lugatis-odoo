@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Calls -->
+    <record id="view_call_list" model="ir.ui.view">
+        <field name="name">lugatis.call.list</field>
+        <field name="model">lugatis.call</field>
+        <field name="arch" type="xml">
+            <list create="false">
+                <field name="start"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="direction"/>
+                <field name="number"/>
+                <field name="partner_id"/>
+                <field name="res_name"/>
+                <field name="state"/>
+                <field name="result_id"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="duration_minutes" sum="Toplam" widget="float_time"/>
+                <field name="mos" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_call_form" model="ir.ui.view">
+        <field name="name">lugatis.call.form</field>
+        <field name="model">lugatis.call</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="direction"/>
+                            <field name="number"/>
+                            <field name="partner_id"/>
+                            <field name="res_name"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="start"/>
+                            <field name="duration_minutes" widget="float_time"/>
+                            <field name="state"/>
+                            <field name="result_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="mos"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Açıklama"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_call_search" model="ir.ui.view">
+        <field name="name">lugatis.call.search</field>
+        <field name="model">lugatis.call</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="number"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="result_id"/>
+                <filter name="today" string="Bugün" domain="[('start', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="missed" string="Cevapsız" domain="[('state', '=', 'missed')]"/>
+                <separator/>
+                <filter name="group_user" string="Temsilci" context="{'group_by': 'user_id'}"/>
+                <filter name="group_result" string="Sonuç kodu" context="{'group_by': 'result_id'}"/>
+                <filter name="group_day" string="Gün" context="{'group_by': 'start:day'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_call_pivot" model="ir.ui.view">
+        <field name="name">lugatis.call.pivot</field>
+        <field name="model">lugatis.call</field>
+        <field name="arch" type="xml">
+            <pivot string="Görüşme analizi">
+                <field name="user_id" type="row"/>
+                <field name="result_id" type="col"/>
+                <field name="duration_minutes" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_call_graph" model="ir.ui.view">
+        <field name="name">lugatis.call.graph</field>
+        <field name="model">lugatis.call</field>
+        <field name="arch" type="xml">
+            <graph string="Görüşmeler" type="bar">
+                <field name="start" interval="day"/>
+                <field name="result_id"/>
+            </graph>
+        </field>
+    </record>
+    <record id="action_calls" model="ir.actions.act_window">
+        <field name="name">Görüşmeler</field>
+        <field name="res_model">lugatis.call</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="context">{'search_default_today': 1}</field>
+    </record>
+
+    <!-- Status history -->
+    <record id="view_log_list" model="ir.ui.view">
+        <field name="name">lugatis.agent.log.list</field>
+        <field name="model">lugatis.agent.log</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false">
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="status_id"/>
+                <field name="kind"/>
+                <field name="start"/>
+                <field name="end"/>
+                <field name="duration_minutes" sum="Toplam" widget="float_time"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_log_pivot" model="ir.ui.view">
+        <field name="name">lugatis.agent.log.pivot</field>
+        <field name="model">lugatis.agent.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Durum süreleri">
+                <field name="user_id" type="row"/>
+                <field name="status_id" type="col"/>
+                <field name="duration_minutes" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="action_logs" model="ir.actions.act_window">
+        <field name="name">Durum geçmişi</field>
+        <field name="res_model">lugatis.agent.log</field>
+        <field name="view_mode">list,pivot</field>
+    </record>
+
+    <!-- Settings lists (editable in place) -->
+    <record id="view_result_list" model="ir.ui.view">
+        <field name="name">lugatis.call.result.list</field>
+        <field name="model">lugatis.call.result</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="color_hex"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_results" model="ir.actions.act_window">
+        <field name="name">Sonuç kodları</field>
+        <field name="res_model">lugatis.call.result</field>
+        <field name="view_mode">list</field>
+    </record>
+    <record id="view_tag_list" model="ir.ui.view">
+        <field name="name">lugatis.call.tag.list</field>
+        <field name="model">lugatis.call.tag</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="color_hex"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_tags" model="ir.actions.act_window">
+        <field name="name">Etiketler</field>
+        <field name="res_model">lugatis.call.tag</field>
+        <field name="view_mode">list</field>
+    </record>
+    <record id="view_status_list" model="ir.ui.view">
+        <field name="name">lugatis.agent.status.list</field>
+        <field name="model">lugatis.agent.status</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="kind"/>
+                <field name="color_hex"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_statuses" model="ir.actions.act_window">
+        <field name="name">Kullanıcı durumları</field>
+        <field name="res_model">lugatis.agent.status</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem id="menu_root" name="Çağrı Merkezi" sequence="60"/>
+    <menuitem id="menu_calls" name="Görüşmeler" parent="menu_root" action="action_calls" sequence="10"/>
+    <menuitem id="menu_logs" name="Durum geçmişi" parent="menu_root" action="action_logs" sequence="20"/>
+    <menuitem id="menu_config" name="Yapılandırma" parent="menu_root" sequence="90" groups="base.group_system"/>
+    <menuitem id="menu_results" name="Sonuç kodları" parent="menu_config" action="action_results" sequence="10"/>
+    <menuitem id="menu_tags" name="Etiketler" parent="menu_config" action="action_tags" sequence="20"/>
+    <menuitem id="menu_statuses" name="Kullanıcı durumları" parent="menu_config" action="action_statuses" sequence="30"/>
+</odoo>
